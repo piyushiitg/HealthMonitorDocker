@@ -1,14 +1,3 @@
-# HealthMonitorDocker
-Simple Health Monitor Docker, Gevent greenlet, ETCD
-
-# Dockerfile
-
-# Setup.py
-How to Install the python project
-{code}
-print "Hello World"
-{code}
-
 
 # Health Monitor Container
 
@@ -16,64 +5,90 @@ Simple Health Monitor Docker, Gevent greenlet, ETCD
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+This is the project to deploy health monitoring of mysql server in Docker container
 
 ### Prerequisites
 
+To build the project you need to install Docker first below packages will be installed automatically
+```
 Gevent
 Greenlet
 MySQL-python
-
-```
-python setup.py install
 ```
 
-### Installing
+### Deployment
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+#### Dockerfile
 
 ```
-Give the example
+From centos:6.8
+MAINTAINER PiyushSinghai
+
+RUN yum -y update
+RUN yum groupinstall -y 'Development Tools'
+RUN yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel && yum clean all
+RUN yum install -y xz-libs && yum clean all
+RUN yum install -y wget && yum clean all
+
+
+RUN yum install -y python-setuptools && yum clean all
+RUN yum install -y python-devel && yum clean all
+RUN yum install -y libevent-devel && yum clean all
+RUN yum install -y MySQL-python && yum clean all
+COPY MonitorHealth.tar.gz /tmp/
+RUN cd /tmp && tar -xvzf MonitorHealth.tar.gz -C /tmp/
+RUN cd /tmp/MonitorHealth && python setup.py install
+CMD ["/usr/bin/health_monitor.py"]
+
 ```
-
-And repeat
+#### How to Install Project inside container using setup.py
 
 ```
-until finished
+#from distutils.core import setup
+from setuptools import setup, find_packages
+
+setup(
+    name='MonitorHealth',
+    version='0.1.1',
+    author='Piyush Singhai',
+    author_email='piyush.singhai@scalearc.com',
+    #packages=find_packages(),
+    install_requires=[
+         'gevent==1.1',
+         'greenlet',
+    ],
+    packages=['etcd_methods',],
+    scripts=['bin/health_monitor.py'],
+    license='Create Failover Container',
+    long_description=open('README.txt').read(),
+)
+
 ```
+Below steps how to create Docker Image using
 
-End with an example of getting some data out of the system or using it for a little demo
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+```
+docker build .
+docker tag <container_id> <Docker Hub Account>/healthmonitor
+docker login
+docker push <Docker Hub Account>/healthmonitor
+```
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Piyush Singhai** - *Initial work* - [Piyush Singhai](https://github.com/piyushiitg)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
