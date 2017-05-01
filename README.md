@@ -51,7 +51,7 @@ setup(
     name='MonitorHealth',
     version='0.1.1',
     author='Piyush Singhai',
-    author_email='piyush.singhai@scalearc.com',
+    author_email='singhai.piyush@gmail.com',
     #packages=find_packages(),
     install_requires=[
          'gevent==1.1',
