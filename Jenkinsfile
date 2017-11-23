@@ -12,6 +12,8 @@ node {
          * docker build on the command line */
 
         app = docker.build("piyushiitg/healthmonitordocker")
+        sh 'echo "Build Successful"'
+
     }
 
     stage('Test image') {
