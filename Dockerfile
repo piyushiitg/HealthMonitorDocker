@@ -12,9 +12,11 @@ RUN yum install -y python-setuptools && yum clean all
 RUN yum install -y python-devel && yum clean all
 RUN yum install -y libevent-devel && yum clean all
 RUN yum install -y MySQL-python && yum clean all
+wget https://pypi.python.org/packages/source/p/pip/pip-6.0.8.tar.gz#md5=2332e6f97e75ded3bddde0ced01dbda3  --no-check-certificate
+easy_install pip-6.0.8.tar.gz
 COPY MonitorHealth.tar.gz /tmp/
 RUN cd /tmp && tar -xvzf MonitorHealth.tar.gz -C /tmp/
-RUN cd /tmp/MonitorHealth && python setup.py install
+RUN cd /tmp/MonitorHealth && pip install -e .
 CMD ["/usr/bin/health_monitor.py"]
 
 
