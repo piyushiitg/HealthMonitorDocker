@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("piyushiitg/HealthMonitorDocker")
+        app = docker.build("piyushiitg/healthmonitordocker")
     }
 
     stage('Test image') {
