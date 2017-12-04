@@ -18,7 +18,3 @@ COPY MonitorHealth.tar.gz /tmp/
 RUN cd /tmp && tar -xvzf MonitorHealth.tar.gz -C /tmp/
 RUN cd /tmp/MonitorHealth && pip install -e .
 CMD ["/usr/bin/health_monitor.py"]
-
-
-
-
