@@ -6,8 +6,6 @@ RUN yum groupinstall -y 'Development Tools'
 RUN yum install -y zlib-dev openssl-devel sqlite-devel bzip2-devel && yum clean all
 RUN yum install -y xz-libs && yum clean all
 RUN yum install -y wget && yum clean all
-
-
 RUN yum install -y python-setuptools && yum clean all
 RUN yum install -y python-devel && yum clean all
 RUN yum install -y libevent-devel && yum clean all
