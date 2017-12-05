@@ -2,7 +2,7 @@ node {
   def app
 
   stage('Clone repository') {
-   checkout scm
+     checkout scm
  }
  
   stage('Build image') {
@@ -20,5 +20,5 @@ node {
           app.push("${env.BUILD_NUMBER}")
           app.push("latest")
         }
-    }
+ }
 }
