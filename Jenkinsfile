@@ -1,24 +1,24 @@
-node {
+﻿node {
   def app
 
   stage('Clone repository') {
-     checkout scm
- }
- 
+    checkout scm
+  }
+
   stage('Build image') {
-     app = docker.build("piyushiitg/healthmonitordocker")
-     sh 'echo "Build Successful"'
- }
-/*
+    app = docker.build("piyushiitg/healthmonitordocker")
+    sh 'echo "Build Successful"'
+  }
+
   stage('Test image') {
-     app.inside {
-            sh 'echo "Tests passed"'
-        }
- }
+    app.inside {
+    sh 'echo "Tests passed"'
+    }
+  }
   stage('Push image') {
-     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-          app.push("${env.BUILD_NUMBER}")
-          app.push("latest")
-        }
- }*/
+    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+    app.push("${env.BUILD_NUMBER}")
+    app.push("latest")
+   }
+  }
 }
