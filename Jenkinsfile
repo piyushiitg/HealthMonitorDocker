@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-app = docker.build("piyushiitg/healthmonitordocker")
+        app = docker.build("piyushiitg/healthmonitordocker")
         sh 'echo "Build Successful"'
 
     }

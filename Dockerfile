@@ -1,4 +1,4 @@
-From centos:6.8
+FROM centos:6.8
 MAINTAINER PiyushSinghai
 
 RUN yum -y update
